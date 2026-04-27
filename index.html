@@ -1,112 +1,1207 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<meta name="robots" content="index, follow">
 
-    <!-- Google Verification -->
-    <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
+<title>TypeScript Code Analysis – Free TS Analyzer, Metrics &amp; Static Analysis Tool</title>
 
-    <!-- SEO Meta -->
-    <title>TypeScript Analysis Tools for Type Safety, Coverage & Debugging</title>
-    <meta name="description" content="Analyze TypeScript projects with tools for strict mode validation, type coverage, mismatch debugging, and unused type detection. Improve code quality and safety.">
+<meta name="description" content="Free TypeScript code analysis tool. Paste TypeScript code to get complexity metrics, type coverage score, code quality analysis, and maintainability score. Covers typescript code metrics, script analysis, and static analysis. No install required.">
 
-    <!-- Keywords -->
-    <meta name="keywords" content="typescript analysis tools, typescript strict mode checker, type coverage analyzer ts, typescript type mismatch debugger, unused types detector typescript, typescript code quality tools">
+<meta name="keywords" content="typescript code analysis, typescript code metrics, typescript script analyzer, typescript static analysis tools, typescript code analysis tools, static code analysis typescript, typescript analyzer online, typescript complexity analyzer, typescript type coverage, typescript maintainability score">
+
+<link rel="canonical" href="https://franrivalbigprojects.github.io/ts-analysis-tools/">
+
+<meta property="og:title" content="TypeScript Code Analysis – Free TS Metrics and Static Analyzer">
+<meta property="og:description" content="Paste TypeScript code to get complexity, type coverage, and maintainability metrics. Free, no install, no login.">
+<meta property="og:type" content="website">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #030712;
+  --surface: #060e1c;
+  --surface2: #0a1628;
+  --border: #0f1f35;
+  --border2: #162d48;
+  --ts: #3b82f6;
+  --ts-dim: rgba(59,130,246,0.1);
+  --ts-dim2: rgba(59,130,246,0.05);
+  --green: #22c55e;
+  --green-dim: rgba(34,197,94,0.1);
+  --green-dim2: rgba(34,197,94,0.05);
+  --yellow: #eab308;
+  --yellow-dim: rgba(234,179,8,0.08);
+  --orange: #f97316;
+  --orange-dim: rgba(249,115,22,0.08);
+  --red: #ef4444;
+  --red-dim: rgba(239,68,68,0.08);
+  --purple: #a78bfa;
+  --purple-dim: rgba(167,139,250,0.08);
+  --text: #b8cce0;
+  --text-muted: #3a5570;
+  --text-dim: #0f1e30;
+  --mono: 'JetBrains Mono', monospace;
+  --sans: 'Inter', sans-serif;
+  --r: 8px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: var(--sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 44px 44px;
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: 0;
+}
+
+header {
+  border-bottom: 1px solid var(--border2);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(3,7,18,0.96);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo-pill {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--ts);
+  background: var(--ts-dim2);
+  border: 1px solid rgba(59,130,246,0.3);
+  border-radius: 3px;
+  padding: 3px 9px;
+}
+
+.logo-text {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.logo-text strong { color: var(--ts); font-weight: 500; }
+
+.wrapper {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* HERO */
+.hero {
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 28px;
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ts);
+  margin-bottom: 14px;
+  opacity: 0.8;
+}
+
+h1 {
+  font-size: clamp(21px, 3.2vw, 30px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 10px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+h1 em { font-style: normal; color: var(--ts); }
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.75;
+  margin-bottom: 18px;
+}
+
+.hero-sub strong { color: var(--text); }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.pill {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.pill-ts  { color: var(--ts); background: var(--ts-dim2); border-color: rgba(59,130,246,0.3); }
+.pill-dim { color: var(--text-muted); border-color: var(--border2); }
+
+/* TOOL */
+.tool-shell {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+
+.tool-topbar {
+  background: var(--surface2);
+  border-bottom: 1px solid var(--border2);
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.topbar-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.btn-sm {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: 5px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid;
+  transition: opacity 0.15s;
+}
+
+.btn-sm:hover { opacity: 0.75; }
+.btn-ts    { background: var(--ts-dim2); color: var(--ts); border-color: rgba(59,130,246,0.3); }
+.btn-ghost { background: transparent; color: var(--text-muted); border-color: var(--border2); }
+.btn-green { background: var(--green-dim2); color: var(--green); border-color: rgba(34,197,94,0.25); }
+
+/* EDITOR SPLIT */
+.editor-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 440px;
+}
+
+.editor-side {
+  border-right: 1px solid var(--border2);
+  display: flex;
+  flex-direction: column;
+}
+
+.panel-head {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+  padding: 7px 14px;
+  border-bottom: 1px solid var(--border2);
+  background: var(--surface2);
+  display: flex;
+  justify-content: space-between;
+}
+
+.code-textarea {
+  flex: 1;
+  width: 100%;
+  min-height: 380px;
+  padding: 14px;
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1.65;
+  background: var(--bg);
+  border: none;
+  color: var(--text);
+  resize: none;
+  tab-size: 2;
+}
+
+.code-textarea:focus { outline: none; }
+
+.results-side { display: flex; flex-direction: column; overflow-y: auto; }
+
+#resultsPane {
+  flex: 1;
+  padding: 14px;
+  min-height: 380px;
+}
+
+.results-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 340px;
+  gap: 8px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-size: 12px;
+  text-align: center;
+}
+
+/* Analyse button bar */
+.analyse-bar {
+  padding: 12px 18px;
+  background: var(--surface2);
+  border-top: 1px solid var(--border2);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn-analyse {
+  padding: 10px 28px;
+  font-family: var(--mono);
+  font-size: 13px;
+  font-weight: 600;
+  background: var(--ts);
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  letter-spacing: 0.03em;
+  transition: opacity 0.15s, box-shadow 0.15s;
+  box-shadow: 0 0 18px rgba(59,130,246,0.25);
+}
+
+.btn-analyse:hover { opacity: 0.87; box-shadow: 0 0 26px rgba(59,130,246,0.4); }
+
+/* SCORE CARDS */
+.score-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.score-card {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 12px;
+  text-align: center;
+}
+
+.sc-num {
+  font-family: var(--mono);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1;
+  margin-bottom: 3px;
+}
+
+.sc-lbl {
+  font-family: var(--mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--text-dim);
+}
+
+/* Score grade badge */
+.grade-card {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  padding: 10px 12px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.grade-letter {
+  font-family: var(--mono);
+  font-size: 26px;
+  font-weight: 600;
+  width: 36px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.grade-meta strong {
+  display: block;
+  font-size: 13px;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+
+.grade-meta span {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--mono);
+}
+
+/* Issue list */
+.issue-list { display: flex; flex-direction: column; gap: 5px; }
+
+.issue-item {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-left: 3px solid;
+  border-radius: 4px;
+  padding: 7px 10px;
+  font-family: var(--mono);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.ii-error  { border-left-color: var(--red); }
+.ii-warn   { border-left-color: var(--yellow); }
+.ii-info   { border-left-color: var(--ts); }
+.ii-good   { border-left-color: var(--green); }
+
+.ii-head {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-bottom: 2px;
+}
+
+.ii-badge {
+  font-size: 9px;
+  padding: 1px 6px;
+  border-radius: 2px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.ib-error  { color: var(--red);    background: var(--red-dim);    border-color: rgba(239,68,68,0.2); }
+.ib-warn   { color: var(--yellow); background: var(--yellow-dim); border-color: rgba(234,179,8,0.2); }
+.ib-info   { color: var(--ts);     background: var(--ts-dim2);    border-color: rgba(59,130,246,0.2); }
+.ib-good   { color: var(--green);  background: var(--green-dim2); border-color: rgba(34,197,94,0.2); }
+
+.ii-title { font-weight: 600; color: var(--text); font-size: 11px; }
+.ii-body  { color: var(--text-muted); font-size: 11px; line-height: 1.5; }
+
+/* Metrics table */
+.metrics-table {
+  background: var(--bg);
+  border: 1px solid var(--border2);
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.mt-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 12px;
+  border-bottom: 1px solid var(--border2);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.mt-row:last-child { border-bottom: none; }
+.mt-key { color: var(--text-muted); }
+.mt-val { color: var(--text); font-weight: 500; }
+
+/* DIVIDER */
+hr.divider { border: none; border-top: 1px solid var(--border2); margin: 50px 0; }
+
+.content-section { margin-bottom: 50px; }
+
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.sec-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--ts);
+  white-space: nowrap;
+  opacity: 0.7;
+}
+
+.sec-rule { flex: 1; height: 1px; background: var(--border2); }
+
+p {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 10px;
+}
+
+p strong { color: var(--text); }
+
+code {
+  font-family: var(--mono);
+  font-size: 12px;
+  background: var(--surface2);
+  color: var(--ts);
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--border2);
+}
+
+/* Tools comparison table */
+.cmp-table {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+  margin-bottom: 14px;
+}
+
+.cmp-row {
+  display: grid;
+  grid-template-columns: 160px 1fr 1fr 1fr 1fr;
+  border-bottom: 1px solid var(--border2);
+}
+
+.cmp-row:last-child { border-bottom: none; }
+.cmp-row.cmp-head { background: var(--surface2); }
+
+.cmp-cell {
+  padding: 10px 12px;
+  font-size: 12px;
+  color: var(--text-muted);
+  border-right: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+}
+
+.cmp-cell:last-child { border-right: none; }
+.cmp-head .cmp-cell { font-family: var(--mono); font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.06em; }
+
+.badge {
+  font-family: var(--mono);
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.b-green  { color: var(--green);  background: var(--green-dim2); border-color: rgba(34,197,94,0.25); }
+.b-yellow { color: var(--yellow); background: var(--yellow-dim); border-color: rgba(234,179,8,0.25); }
+.b-ts     { color: var(--ts);     background: var(--ts-dim2);    border-color: rgba(59,130,246,0.25); }
+.b-red    { color: var(--red);    background: var(--red-dim);    border-color: rgba(239,68,68,0.25); }
+
+/* Dense block */
+.dense-block {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 22px;
+  margin-top: 14px;
+}
+
+.dense-block p { margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid var(--border2); }
+.dense-block p:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+
+/* FAQ */
+.faq-list {
+  margin-top: 14px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+.faq-item { border-bottom: 1px solid var(--border2); }
+.faq-item:last-child { border-bottom: none; }
+
+.faq-q {
+  width: 100%;
+  text-align: left;
+  background: var(--surface);
+  border: none;
+  padding: 13px 18px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text);
+  font-family: var(--sans);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.faq-q:hover { background: var(--ts-dim2); }
+.faq-arrow { font-family: var(--mono); font-size: 11px; color: var(--text-dim); transition: transform 0.2s; flex-shrink: 0; }
+.faq-item.open .faq-arrow { transform: rotate(180deg); }
+
+.faq-a {
+  display: none;
+  padding: 0 18px 13px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  border-top: 1px solid var(--border2);
+  background: var(--bg);
+}
+
+.faq-item.open .faq-a { display: block; }
+.faq-a code { font-family: var(--mono); font-size: 11px; color: var(--ts); background: var(--ts-dim2); border-radius: 3px; padding: 1px 5px; }
+
+/* Tag cloud */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 50px; }
+
+.tag {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--text-muted);
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  padding: 4px 12px;
+  cursor: default;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.tag:hover { color: var(--ts); border-color: rgba(59,130,246,0.3); }
+
+/* Other tools */
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.otl {
+  background: var(--surface);
+  border: 1px solid var(--border2);
+  border-radius: var(--r);
+  padding: 14px 16px;
+  text-decoration: none;
+  display: block;
+  transition: border-color 0.15s;
+}
+
+.otl:hover { border-color: rgba(59,130,246,0.3); }
+.otl-eye  { font-family: var(--mono); font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
+.otl-name { font-family: var(--mono); font-size: 12px; color: var(--ts); font-weight: 500; }
+
+footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+
+.footer-inner {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 0; }
+
+@media (max-width: 680px) {
+  .editor-split { grid-template-columns: 1fr; }
+  .editor-side { border-right: none; border-bottom: 1px solid var(--border2); }
+  .score-row { grid-template-columns: 1fr 1fr; }
+  .cmp-row { grid-template-columns: 120px repeat(4, 1fr); font-size: 11px; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "TypeScript Code Analysis Tool",
+  "applicationCategory": "DeveloperApplication",
+  "operatingSystem": "Web",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+  "description": "Free TypeScript code analysis tool. Paste TypeScript code to get complexity metrics, type coverage score, maintainability analysis, and code quality issues. Covers typescript code metrics, typescript script analysis, and static analysis. No install required.",
+  "featureList": "TypeScript complexity analysis, type coverage score, cyclomatic complexity, lines of code, any type detection, unused variable detection, maintainability grade"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What are the best TypeScript static analysis tools?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The main TypeScript static analysis tools are: ESLint with @typescript-eslint (most widely used, catches type-unsafe patterns), TypeScript compiler itself with strict mode (tsc --strict), SonarQube/SonarCloud (enterprise code quality platform), FTA - Fast TypeScript Analyzer (complexity and maintainability metrics, written in Rust), and typescript-coverage-report (measures percentage of typed code). This online analyzer provides instant code metrics without any installation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What TypeScript code metrics should I track?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Key TypeScript code metrics: Cyclomatic complexity (number of independent code paths — under 10 per function is ideal), lines of code per file (under 200-300 for maintainability), type coverage percentage (ratio of explicitly typed vs inferred vs any), any type usage count (each any is a type safety hole), function count and average length, and unused variable/import count. These metrics together give a maintainability score."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is TypeScript code analysis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TypeScript code analysis is the process of examining TypeScript source files to detect quality issues, measure complexity, and assess type safety without executing the code. Static analysis tools parse TypeScript ASTs to find patterns like excessive any usage, high cyclomatic complexity, missing return types, unused variables, and potential null pointer errors. The TypeScript compiler itself performs type checking, while tools like ESLint and FTA provide additional code quality metrics."
+      }
+    }
+  ]
+}
+</script>
 
 </head>
 
 <body>
 
 <header>
-    <h1>TypeScript Analysis & Type Safety Tools</h1>
-    <p>
-        Improve your TypeScript codebase with advanced analysis tools focused on type safety, 
-        coverage, and debugging. Detect issues early, enforce best practices, and maintain 
-        a clean, reliable code structure.
-    </p>
+  <div class="header-inner">
+    <span class="logo-pill">TS</span>
+    <span class="logo-text"><strong>typescript</strong>-code-analysis</span>
+  </div>
 </header>
 
-<section>
-    <h2>Why Use TypeScript Analysis Tools?</h2>
-    <p>
-        TypeScript adds strong typing, but maintaining type quality at scale can be challenging. 
-        These tools help ensure consistency, detect issues, and improve developer productivity.
+<div class="wrapper">
+
+  <!-- HERO -->
+
+  <section class="hero">
+    <p class="hero-eyebrow">// Free TypeScript Dev Tool</p>
+    <h1><em>TypeScript Code Analysis</em><br>Metrics, Complexity &amp; Static Analyzer</h1>
+    <p class="hero-sub">
+      Paste TypeScript code to get <strong>complexity metrics, type coverage score, maintainability grade</strong>, and static analysis issues — instantly, no install.
     </p>
-    <ul>
-        <li>Enforce strict typing rules across projects</li>
-        <li>Measure and improve type coverage</li>
-        <li>Debug complex type mismatches</li>
-        <li>Identify unused or redundant types</li>
-        <li>Improve maintainability and code quality</li>
-    </ul>
-</section>
+    <div class="pill-row">
+      <span class="pill pill-ts">Code Metrics</span>
+      <span class="pill pill-ts">Type Coverage</span>
+      <span class="pill pill-dim">Complexity Score</span>
+      <span class="pill pill-dim">Maintainability Grade</span>
+      <span class="pill pill-dim">Free &middot; No install</span>
+    </div>
+  </section>
 
-<section>
-    <h2>TypeScript Tools List</h2>
+  <!-- TOOL -->
 
-    <article>
-        <h3>Strict Mode Checker</h3>
-        <p>
-            Validate and enforce TypeScript strict mode settings to ensure maximum type safety.
-        </p>
-        <a href="/ts_analysis_tools/typescript_strict_mode_checker">Open Strict Mode Checker</a>
-    </article>
+  <div class="tool-shell">
+    <div class="tool-topbar">
+      <span class="topbar-label">// TypeScript Code Analyzer</span>
+      <div style="display:flex;gap:8px;">
+        <button class="btn-sm btn-green" onclick="loadSample()">Load Sample</button>
+        <button class="btn-sm btn-ghost" onclick="clearAll()">Clear</button>
+      </div>
+    </div>
 
-    <article>
-        <h3>Type Coverage Analyzer</h3>
-        <p>
-            Analyze how much of your codebase is covered by TypeScript types and identify gaps.
-        </p>
-        <a href="/ts_analysis_tools/typescript_type_coverage_analyzer">Open Type Coverage Tool</a>
-    </article>
 
-    <article>
-        <h3>Type Mismatch Debugger</h3>
-        <p>
-            Detect and debug mismatched types to prevent runtime errors and improve reliability.
-        </p>
-        <a href="/ts_analysis_tools/typescript_type_mismatch_debugger">Open Type Debugger</a>
-    </article>
+<div class="editor-split">
+  <div class="editor-side">
+    <div class="panel-head"><span>// Paste TypeScript code</span><span id="lineCount">0 lines</span></div>
+    <textarea class="code-textarea" id="codeInput" oninput="onCodeChange()" spellcheck="false" placeholder="// Paste your TypeScript code here..."></textarea>
+  </div>
+  <div class="results-side">
+    <div class="panel-head"><span>// Analysis results</span></div>
+    <div id="resultsPane">
+      <div class="results-empty">
+        <span style="font-size:28px;opacity:0.15">&#9632;</span>
+        <span>Paste TypeScript code<br>and click Analyze</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-    <article>
-        <h3>Unused Types Detector</h3>
-        <p>
-            Identify unused or redundant types in your TypeScript codebase to keep it clean and optimized.
-        </p>
-        <a href="/ts_analysis_tools/typescript_unused_types_detector">Open Unused Types Tool</a>
-    </article>
+<div class="analyse-bar">
+  <button class="btn-analyse" onclick="analyseCode()">Analyze TypeScript</button>
+  <button class="btn-sm btn-ghost" onclick="clearAll()">Reset</button>
+</div>
 
-</section>
 
-<section>
-    <h2>Use Cases</h2>
-    <ul>
-        <li>Improving TypeScript code quality</li>
-        <li>Debugging type-related errors</li>
-        <li>Refactoring large TypeScript projects</li>
-        <li>Enforcing strict typing standards</li>
-        <li>Reducing technical debt in typed codebases</li>
-    </ul>
-</section>
+  </div>
 
-<section>
-    <h2>Long-Tail Search Queries</h2>
-    <ul>
-        <li>typescript strict mode best practices checker</li>
-        <li>how to measure type coverage in typescript</li>
-        <li>debug typescript type mismatch errors tool</li>
-        <li>detect unused types in typescript project</li>
-        <li>improve typescript code quality tools</li>
-        <li>typescript static analysis tools for developers</li>
-    </ul>
-</section>
+  <hr class="divider">
+
+  <!-- STATIC ANALYSIS TOOLS COMPARISON -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">TypeScript Static Analysis Tools</span>
+      <span class="sec-rule"></span>
+    </div>
+
+
+<p><strong>TypeScript static analysis tools</strong> examine your code without running it to find bugs, measure complexity, and enforce style rules. Here is how the main tools compare:</p>
+
+<div class="cmp-table">
+  <div class="cmp-row cmp-head">
+    <div class="cmp-cell">Tool</div>
+    <div class="cmp-cell">Type</div>
+    <div class="cmp-cell">Install</div>
+    <div class="cmp-cell">Best for</div>
+    <div class="cmp-cell">Free</div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell" style="color:#fff;font-weight:600;">This tool</div>
+    <div class="cmp-cell">Metrics + complexity</div>
+    <div class="cmp-cell"><span class="badge b-green">Browser</span></div>
+    <div class="cmp-cell">Quick code review</div>
+    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell">ESLint + @typescript-eslint</div>
+    <div class="cmp-cell">Linting + type safety</div>
+    <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
+    <div class="cmp-cell">Daily development</div>
+    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell">tsc --strict</div>
+    <div class="cmp-cell">Type checking</div>
+    <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
+    <div class="cmp-cell">Compile-time safety</div>
+    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell">FTA (Fast TypeScript Analyzer)</div>
+    <div class="cmp-cell">Complexity + metrics</div>
+    <div class="cmp-cell"><span class="badge b-yellow">Rust CLI</span></div>
+    <div class="cmp-cell">Repo-wide metrics</div>
+    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell">SonarQube / SonarCloud</div>
+    <div class="cmp-cell">Full code quality</div>
+    <div class="cmp-cell"><span class="badge b-red">Server / SaaS</span></div>
+    <div class="cmp-cell">Enterprise CI/CD</div>
+    <div class="cmp-cell"><span class="badge b-yellow">Freemium</span></div>
+  </div>
+  <div class="cmp-row">
+    <div class="cmp-cell">typescript-coverage-report</div>
+    <div class="cmp-cell">Type coverage</div>
+    <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
+    <div class="cmp-cell">Type coverage %</div>
+    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+  </div>
+</div>
+
+
+  </section>
+
+  <!-- METRICS EXPLAINED -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">TypeScript Code Metrics Explained</span>
+      <span class="sec-rule"></span>
+    </div>
+
+
+<div class="dense-block">
+  <p><strong>Cyclomatic Complexity</strong><br>
+  Counts the number of independent paths through a function — each <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>case</code>, <code>catch</code>, <code>&&</code>, and <code>||</code> adds 1. A score of 1-5 is simple, 6-10 is moderate, 11-20 is complex and should be refactored, above 20 is a maintainability risk. TypeScript functions with high cyclomatic complexity are harder to test and understand.</p>
+
+  <p><strong>Type Coverage Score</strong><br>
+  Measures the ratio of your code that has explicit or inferred type information vs. uses <code>any</code>. A high <code>any</code> count defeats the purpose of TypeScript — each <code>any</code> is an escape hatch that bypasses type checking. Tools like <code>typescript-coverage-report</code> and <code>type-coverage</code> measure this across your entire repo. This analyzer counts explicit <code>any</code> usages as a proxy for coverage quality.</p>
+
+  <p><strong>Maintainability Index</strong><br>
+  A composite score combining cyclomatic complexity, lines of code, and Halstead volume (a measure of code density). The FTA tool uses a similar scoring model. Higher scores mean more maintainable code. This analyzer grades from A (excellent) to F (needs immediate refactoring) using a weighted combination of complexity, file size, and type safety issues.</p>
+
+  <p><strong>Function and Class Count</strong><br>
+  Large files with many functions are harder to navigate. As a rule of thumb: files should have a single responsibility, functions should do one thing, and classes should have a narrow interface. A TypeScript file with 20+ functions or 3+ classes is a signal to split into multiple modules.</p>
+</div>
+
+
+  </section>
+
+  <!-- FAQ -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">FAQ — TypeScript Static Analysis</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What are the best TypeScript static analysis tools?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">The main tools: <strong>ESLint + @typescript-eslint</strong> — most widely used, catches type-unsafe patterns and enforces best practices. <strong>tsc --strict</strong> — the compiler itself with strict null checks, no implicit any, and strict function types. <strong>FTA</strong> — Fast TypeScript Analyzer, a Rust CLI that measures complexity and maintainability scores across your codebase. <strong>SonarCloud</strong> — enterprise code quality with TypeScript-specific rules. <strong>knip</strong> — finds unused exports, dependencies, and files. This tool provides instant browser-based metrics with no install.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What TypeScript code analysis tools detect unused code?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a"><code>knip</code> is the best dedicated tool for finding unused TypeScript exports, files, and dependencies across a project. <code>ts-prune</code> finds unused exports. ESLint's <code>no-unused-vars</code> and <code>@typescript-eslint/no-unused-vars</code> catch unused local variables at file level. TypeScript's own <code>noUnusedLocals</code> and <code>noUnusedParameters</code> compiler flags also detect unused declarations. This analyzer detects unused variables in the pasted code.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">How do I do static code analysis in TypeScript?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Three layers: (1) <strong>Compiler checks</strong> — enable <code>strict: true</code> in <code>tsconfig.json</code> for maximum type safety. (2) <strong>Linting</strong> — add ESLint with <code>@typescript-eslint/recommended</code> to catch patterns the compiler allows but are considered unsafe. (3) <strong>Complexity metrics</strong> — use FTA or this tool to measure cyclomatic complexity and flag files that need refactoring. Run all three in CI to enforce quality on every pull request.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is FTA — Fast TypeScript Analyzer?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">FTA is an open-source TypeScript static analysis CLI written in Rust (using the <code>swc</code> parser). It analyzes TypeScript and JavaScript files for complexity and maintainability, outputting a score per file. It can analyze up to 1600 files per second. FTA is available via npm (<code>npx fta-cli</code>) and has a playground at ftaproject.dev. This browser tool provides similar per-snippet metrics without requiring installation.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">What is a good TypeScript maintainability score?<span class="faq-arrow">&#9660;</span></button>
+        <div class="faq-a">Grade A (80-100): simple, well-typed, low complexity — easy to maintain. Grade B (65-79): minor issues, generally maintainable. Grade C (50-64): moderate complexity or type safety gaps — refactoring recommended. Grade D (35-49): high complexity or significant <code>any</code> usage — technical debt present. Grade F (below 35): difficult to maintain, high risk of bugs — prioritize refactoring. Most production TypeScript files should target Grade B or above.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OTHER TOOLS -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">More TypeScript Tools</span>
+      <span class="sec-rule"></span>
+    </div>
+    <div class="tools-grid">
+      <a href="typescript_strict_mode_checker/" class="otl">
+        <p class="otl-eye">strict //</p>
+        <span class="otl-name">Strict Mode Checker</span>
+      </a>
+      <a href="typescript_type_coverage_analyzer/" class="otl">
+        <p class="otl-eye">coverage //</p>
+        <span class="otl-name">Type Coverage Analyzer</span>
+      </a>
+      <a href="typescript_type_mismatch_debugger/" class="otl">
+        <p class="otl-eye">debug //</p>
+        <span class="otl-name">Type Mismatch Debugger</span>
+      </a>
+      <a href="typescript_unused_types_detector/" class="otl">
+        <p class="otl-eye">unused //</p>
+        <span class="otl-name">Unused Types Detector</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- TAGS -->
+
+  <div class="tag-cloud">
+    <span class="tag">typescript code analysis</span>
+    <span class="tag">typescript code metrics</span>
+    <span class="tag">typescript script analyzer</span>
+    <span class="tag">typescript static analysis tools</span>
+    <span class="tag">static code analysis typescript</span>
+    <span class="tag">typescript complexity score</span>
+    <span class="tag">typescript maintainability index</span>
+    <span class="tag">typescript any type detector</span>
+    <span class="tag">typescript cyclomatic complexity</span>
+    <span class="tag">typescript code quality tool</span>
+    <span class="tag">typescript analyzer online free</span>
+    <span class="tag">fta typescript analyzer alternative</span>
+  </div>
+
+</div>
 
 <footer>
-    <p>
-        Build safer and more maintainable applications with powerful TypeScript analysis tools designed for modern development.
-    </p>
+  <div class="footer-inner">
+    <p>typescript-code-analysis &middot; metrics &middot; static analysis &middot; free &middot; no install</p>
+    <p>complexity &middot; type coverage &middot; maintainability &middot; github pages</p>
+  </div>
 </footer>
+
+<script>
+// ─── ANALYSIS ENGINE ───
+
+function onCodeChange() {
+  var code = document.getElementById('codeInput').value;
+  var lines = code ? code.split('\n').length : 0;
+  document.getElementById('lineCount').textContent = lines + ' lines';
+}
+
+function countMatches(code, pattern) {
+  var m = code.match(pattern);
+  return m ? m.length : 0;
+}
+
+function calcComplexity(code) {
+  // Count decision points: if, else if, for, while, do, case, catch, &&, ||, ternary
+  var ifCount      = countMatches(code, /\bif\s*\(/g);
+  var elseIf       = countMatches(code, /\belse\s+if\s*\(/g);
+  var forCount     = countMatches(code, /\bfor\s*\(/g);
+  var whileCount   = countMatches(code, /\bwhile\s*\(/g);
+  var caseCount    = countMatches(code, /\bcase\s+[^:]+:/g);
+  var catchCount   = countMatches(code, /\bcatch\s*\(/g);
+  var andCount     = countMatches(code, /&&/g);
+  var orCount      = countMatches(code, /\|\|/g);
+  var ternaryCount = countMatches(code, /\?[^:?]+:/g);
+  return 1 + ifCount + elseIf + forCount + whileCount + caseCount + catchCount + Math.floor((andCount + orCount) / 2) + Math.floor(ternaryCount / 2);
+}
+
+function calcTypeCoverage(code) {
+  var anyCount       = countMatches(code, /:\s*any\b/g);
+  var typedParams    = countMatches(code, /\w+\s*:\s*(?!any\b)\w/g);
+  var returnTypes    = countMatches(code, /\)\s*:\s*(?!any\b)\w/g);
+  var interfaceCount = countMatches(code, /\binterface\b/g);
+  var typeAliases    = countMatches(code, /\btype\s+\w+\s*=/g);
+  var total = anyCount + typedParams + returnTypes + interfaceCount + typeAliases;
+  if (total === 0) return { score: 50, anyCount: 0 };
+  var typed = typedParams + returnTypes + interfaceCount + typeAliases;
+  var pct = Math.round((typed / total) * 100);
+  return { score: pct, anyCount: anyCount };
+}
+
+function calcMaintainability(loc, complexity, anyCount, issues) {
+  var locPenalty  = loc > 300 ? 20 : loc > 150 ? 10 : loc > 80 ? 5 : 0;
+  var ccPenalty   = complexity > 20 ? 30 : complexity > 10 ? 15 : complexity > 6 ? 5 : 0;
+  var anyPenalty  = anyCount > 10 ? 20 : anyCount > 4 ? 10 : anyCount > 0 ? 5 : 0;
+  var issuePenalty = issues > 8 ? 15 : issues > 4 ? 8 : issues > 1 ? 3 : 0;
+  var score = 100 - locPenalty - ccPenalty - anyPenalty - issuePenalty;
+  return Math.max(5, Math.min(100, score));
+}
+
+function scoreToGrade(score) {
+  if (score >= 80) return { grade: 'A', label: 'Excellent', color: 'var(--green)' };
+  if (score >= 65) return { grade: 'B', label: 'Good', color: 'var(--ts)' };
+  if (score >= 50) return { grade: 'C', label: 'Moderate — refactoring recommended', color: 'var(--yellow)' };
+  if (score >= 35) return { grade: 'D', label: 'Poor — technical debt present', color: 'var(--orange)' };
+  return { grade: 'F', label: 'Critical — prioritize refactoring', color: 'var(--red)' };
+}
+
+function runChecks(code, complexity, anyCount, loc, funcCount) {
+  var issues = [];
+
+  if (complexity > 20) {
+    issues.push({ type: 'error', title: 'Very high cyclomatic complexity (' + complexity + ')', body: 'Above 20 is a significant maintainability risk. Break this code into smaller, focused functions.' });
+  } else if (complexity > 10) {
+    issues.push({ type: 'warn', title: 'High cyclomatic complexity (' + complexity + ')', body: 'Consider refactoring complex conditionals or loops into separate functions.' });
+  }
+
+  if (loc > 300) {
+    issues.push({ type: 'warn', title: 'File too large (' + loc + ' lines)', body: 'Files over 300 lines are harder to maintain. Split into modules with single responsibilities.' });
+  }
+
+  if (anyCount > 4) {
+    issues.push({ type: 'error', title: 'Excessive any usage (' + anyCount + ' occurrences)', body: 'Each `any` bypasses TypeScript\'s type checking. Replace with specific types or `unknown`.' });
+  } else if (anyCount > 0) {
+    issues.push({ type: 'warn', title: 'any type used (' + anyCount + ' times)', body: 'Consider replacing with specific types. Use `unknown` if the type is truly unknown, then narrow with type guards.' });
+  }
+
+  var noReturnType = countMatches(code, /\)\s*\{/g);
+  var withReturnType = countMatches(code, /\)\s*:\s*\w[^{]*\{/g);
+  if (noReturnType > withReturnType + 2) {
+    issues.push({ type: 'warn', title: 'Missing return type annotations', body: 'Explicitly annotating return types improves readability and catches errors when function signatures change.' });
+  }
+
+  var hasConsoleLog = countMatches(code, /console\.log\(/g);
+  if (hasConsoleLog > 0) {
+    issues.push({ type: 'info', title: 'console.log found (' + hasConsoleLog + ')', body: 'Remove debug logging before production. Use a structured logger instead.' });
+  }
+
+  var hasNonNullAssert = countMatches(code, /[^!]![^=]/g);
+  if (hasNonNullAssert > 2) {
+    issues.push({ type: 'warn', title: 'Non-null assertions (!)', body: 'Overusing ! bypasses null safety. Consider proper null checks or optional chaining (?.).' });
+  }
+
+  var hasTypeAssertion = countMatches(code, /as\s+\w/g);
+  if (hasTypeAssertion > 3) {
+    issues.push({ type: 'warn', title: 'Frequent type assertions (as ...)', body: 'Many type assertions suggest incorrect type modeling. Improve type definitions instead of casting.' });
+  }
+
+  var unusedVars = [];
+  var varDeclRe = /(?:const|let|var)\s+(\w+)\s*[=:]/g;
+  var match;
+  while ((match = varDeclRe.exec(code)) !== null) {
+    var varName = match[1];
+    if (varName.charAt(0) === '_') continue;
+    var usageCount = (code.match(new RegExp('\\b' + varName + '\\b', 'g')) || []).length;
+    if (usageCount === 1) unusedVars.push(varName);
+  }
+
+  if (unusedVars.length > 2) {
+    issues.push({ type: 'warn', title: 'Potentially unused variables (' + unusedVars.slice(0, 4).join(', ') + (unusedVars.length > 4 ? '...' : '') + ')', body: 'Variables declared but used only once (declaration). Enable noUnusedLocals in tsconfig.' });
+  }
+
+  if (issues.length === 0) {
+    issues.push({ type: 'good', title: 'No major issues detected', body: 'Code structure looks good for the checked patterns. Run ESLint and tsc for deeper validation.' });
+  }
+
+  return issues;
+}
+
+function el(tag, cls, text) {
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+function analyseCode() {
+  var code = document.getElementById('codeInput').value.trim();
+  var pane = document.getElementById('resultsPane');
+  pane.innerHTML = '';
+
+  if (!code) {
+    pane.innerHTML = '<div class="results-empty"><span style="font-size:24px;opacity:0.15">&#9632;</span><span>Paste TypeScript code first.</span></div>';
+    return;
+  }
+
+  var loc        = code.split('\n').filter(function(l) { return l.trim(); }).length;
+  var totalLines = code.split('\n').length;
+  var funcCount  = countMatches(code, /\bfunction\b|\b=>\s*[{(]/g);
+  var classCount = countMatches(code, /\bclass\b/g);
+  var complexity = calcComplexity(code);
+  var coverage   = calcTypeCoverage(code);
+  var issues     = runChecks(code, complexity, coverage.anyCount, loc, funcCount);
+  var mScore     = calcMaintainability(loc, complexity, coverage.anyCount, issues.length);
+  var grade      = scoreToGrade(mScore);
+
+  // Score row
+  var scoreRow = el('div', 'score-row');
+
+  function makeScore(val, lbl, color) {
+    var c = el('div', 'score-card');
+    var n = el('div', 'sc-num', String(val));
+    n.style.color = color;
+    var l = el('div', 'sc-lbl', lbl);
+    c.appendChild(n); c.appendChild(l);
+    return c;
+  }
+
+  var ccColor = complexity > 20 ? 'var(--red)' : complexity > 10 ? 'var(--orange)' : complexity > 5 ? 'var(--yellow)' : 'var(--green)';
+  scoreRow.appendChild(makeScore(mScore, 'Maint. Score', grade.color));
+  scoreRow.appendChild(makeScore(complexity, 'Complexity', ccColor));
+  scoreRow.appendChild(makeScore(coverage.score + '%', 'Type Quality', coverage.score > 80 ? 'var(--green)' : coverage.score > 60 ? 'var(--yellow)' : 'var(--red)'));
+  scoreRow.appendChild(makeScore(loc, 'Lines', loc > 200 ? 'var(--orange)' : 'var(--text)'));
+  pane.appendChild(scoreRow);
+
+  // Grade card
+  var gc = el('div', 'grade-card');
+  var gl = el('div', 'grade-letter', grade.grade);
+  gl.style.color = grade.color;
+  var gm = el('div', 'grade-meta');
+  var gs = el('strong', null, 'Grade ' + grade.grade + ': ' + grade.label);
+  var gt = el('span', null, 'Maintainability: ' + mScore + '/100 · Complexity: ' + complexity + ' · any: ' + coverage.anyCount);
+  gm.appendChild(gs); gm.appendChild(gt);
+  gc.appendChild(gl); gc.appendChild(gm);
+  pane.appendChild(gc);
+
+  // Metrics table
+  var mt = el('div', 'metrics-table');
+  function mRow(key, val) {
+    var row = el('div', 'mt-row');
+    var k = el('span', 'mt-key', key);
+    var v = el('span', 'mt-val', val);
+    row.appendChild(k); row.appendChild(v); mt.appendChild(row);
+  }
+  mRow('Total lines', totalLines + ' (' + loc + ' non-empty)');
+  mRow('Functions / arrow fns', funcCount);
+  mRow('Classes', classCount);
+  mRow('Cyclomatic complexity', complexity + (complexity > 10 ? ' ⚠ high' : complexity > 5 ? ' moderate' : ' ✓ good'));
+  mRow('any type usage', coverage.anyCount + (coverage.anyCount > 0 ? ' (type safety holes)' : ' ✓ none'));
+  mRow('Type quality score', coverage.score + '%');
+  mRow('Interfaces / type aliases', countMatches(code, /\b(?:interface|type)\s+\w/g));
+  pane.appendChild(mt);
+
+  // Issues
+  var issueList = el('div', 'issue-list');
+  issues.forEach(function(issue) {
+    var item = el('div', 'issue-item ii-' + (issue.type === 'good' ? 'good' : issue.type));
+    var head = el('div', 'ii-head');
+    var badge = el('span', 'ii-badge ib-' + (issue.type === 'good' ? 'good' : issue.type), issue.type.toUpperCase());
+    var title = el('span', 'ii-title', issue.title);
+    head.appendChild(badge); head.appendChild(title);
+    var body = el('div', 'ii-body', issue.body);
+    item.appendChild(head); item.appendChild(body);
+    issueList.appendChild(item);
+  });
+  pane.appendChild(issueList);
+}
+
+function loadSample() {
+  var sample = [
+    'interface User {',
+    '  id: number;',
+    '  name: string;',
+    '  email: string;',
+    '}',
+    '',
+    'function processUsers(users: User[]): User[] {',
+    '  const result: User[] = [];',
+    '  for (const user of users) {',
+    '    if (user.id > 0) {',
+    '      if (user.name && user.email) {',
+    '        result.push(user);',
+    '      }',
+    '    }',
+    '  }',
+    '  return result;',
+    '}',
+    '',
+    'async function fetchData(url: string): Promise<any> {',
+    '  const response = await fetch(url);',
+    '  const data: any = await response.json();',
+    '  console.log("fetched:", data);',
+    '  return data;',
+    '}',
+    '',
+    'class UserService {',
+    '  private users: User[] = [];',
+    '',
+    '  addUser(user: User): void {',
+    '    if (!user.id || !user.name) return;',
+    '    this.users.push(user);',
+    '  }',
+    '',
+    '  findById(id: number): User | undefined {',
+    '    return this.users.find(u => u.id === id);',
+    '  }',
+    '',
+    '  getAll(): User[] {',
+    '    return this.users;',
+    '  }',
+    '}'
+  ].join('\n');
+  document.getElementById('codeInput').value = sample;
+  onCodeChange();
+  analyseCode();
+}
+
+function clearAll() {
+  document.getElementById('codeInput').value = '';
+  document.getElementById('lineCount').textContent = '0 lines';
+  document.getElementById('resultsPane').innerHTML = '<div class="results-empty"><span style="font-size:28px;opacity:0.15">&#9632;</span><span>Paste TypeScript code<br>and click Analyze</span></div>';
+}
+
+function toggleFaq(btn) {
+  btn.parentElement.classList.toggle('open');
+}
+</script>
 
 </body>
 </html>
