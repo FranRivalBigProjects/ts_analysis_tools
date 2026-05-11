@@ -7,16 +7,16 @@
 <meta name="google-site-verification" content="PkLa_ViOo6FAHpvh8SacceMb95o9tePRdrqLNBz9X1M" />
 <meta name="robots" content="index, follow">
 
-<title>TypeScript Code Analysis – Free TS Analyzer, Metrics &amp; Static Analysis Tool</title>
+<title>Free TypeScript Code Analysis Tool – Metrics, Complexity Analyzer & Static Code Analyzer Online</title>
 
-<meta name="description" content="Free TypeScript code analysis tool. Paste TypeScript code to get complexity metrics, type coverage score, code quality analysis, and maintainability score. Covers typescript code metrics, script analysis, and static analysis. No install required.">
+<meta name="description" content="Free TypeScript code analysis tool. Paste code to analyze cyclomatic complexity metrics, type coverage score, maintainability index, code quality issues. Best free TypeScript analyzer online. No install required.">
 
-<meta name="keywords" content="typescript code analysis, typescript code metrics, typescript script analyzer, typescript static analysis tools, typescript code analysis tools, static code analysis typescript, typescript analyzer online, typescript complexity analyzer, typescript type coverage, typescript maintainability score">
+<meta name="keywords" content="typescript code analysis, typescript code analyzer, typescript metrics, typescript complexity analyzer, typescript code quality analyzer, cyclomatic complexity typescript, type coverage typescript, typescript maintainability index, static code analysis typescript, typescript analyzer online free, typescript static analysis tools, typescript code metrics, typescript type coverage, free typescript analyzer">
 
 <link rel="canonical" href="https://franrivalbigprojects.github.io/ts-analysis-tools/">
 
-<meta property="og:title" content="TypeScript Code Analysis – Free TS Metrics and Static Analyzer">
-<meta property="og:description" content="Paste TypeScript code to get complexity, type coverage, and maintainability metrics. Free, no install, no login.">
+<meta property="og:title" content="Free TypeScript Code Analysis Tool – Metrics, Complexity &amp; Quality Analyzer">
+<meta property="og:description" content="Free online TypeScript code analyzer. Get cyclomatic complexity, type coverage, maintainability grade &amp; code quality metrics instantly. No install.">
 <meta property="og:type" content="website">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -149,15 +149,44 @@ h1 {
 
 h1 em { font-style: normal; color: var(--ts); }
 
+h2 {
+  font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 14px;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: clamp(14px, 2vw, 18px);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 10px;
+  line-height: 1.4;
+}
+
 .hero-sub {
   font-size: 15px;
   color: var(--text-muted);
-  max-width: 600px;
+  max-width: 700px;
   line-height: 1.75;
-  margin-bottom: 18px;
+  margin-bottom: 12px;
 }
 
 .hero-sub strong { color: var(--text); }
+
+.hero-desc {
+  font-size: 13px;
+  color: var(--text-dim);
+  max-width: 700px;
+  line-height: 1.7;
+  margin-bottom: 18px;
+  background: var(--ts-dim2);
+  padding: 10px 12px;
+  border-radius: 4px;
+  border-left: 3px solid var(--ts);
+}
 
 .pill-row { display: flex; flex-wrap: wrap; gap: 6px; }
 
@@ -472,6 +501,18 @@ p {
 
 p strong { color: var(--text); }
 
+ul, ol {
+  margin-left: 20px;
+  margin-bottom: 14px;
+}
+
+li {
+  font-size: 14px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  margin-bottom: 6px;
+}
+
 code {
   font-family: var(--mono);
   font-size: 12px;
@@ -622,26 +663,35 @@ code {
 .otl-eye  { font-family: var(--mono); font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 4px; }
 .otl-name { font-family: var(--mono); font-size: 12px; color: var(--ts); font-weight: 500; }
 
-footer { border-top: 1px solid var(--border2); padding: 20px 0; position: relative; z-index: 1; }
+footer { border-top: 1px solid var(--border2); padding: 28px 0; position: relative; z-index: 1; }
 
 .footer-inner {
   max-width: 1060px;
   margin: 0 auto;
   padding: 0 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 8px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 28px;
 }
 
-footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); margin: 0; }
+footer h3 { font-size: 12px; color: var(--ts); font-weight: 600; margin-bottom: 10px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+footer ul { list-style: none; padding: 0; }
+
+footer li { margin-bottom: 6px; }
+
+footer a { font-size: 12px; color: var(--text-muted); text-decoration: none; font-family: var(--sans); transition: color 0.15s; }
+
+footer a:hover { color: var(--ts); }
+
+footer p { font-family: var(--mono); font-size: 10px; color: var(--text-dim); margin: 0; }
 
 @media (max-width: 680px) {
   .editor-split { grid-template-columns: 1fr; }
   .editor-side { border-right: none; border-bottom: 1px solid var(--border2); }
   .score-row { grid-template-columns: 1fr 1fr; }
   .cmp-row { grid-template-columns: 120px repeat(4, 1fr); font-size: 11px; }
+  .footer-inner { grid-template-columns: 1fr; }
 }
 </style>
 
@@ -653,8 +703,44 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   "applicationCategory": "DeveloperApplication",
   "operatingSystem": "Web",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-  "description": "Free TypeScript code analysis tool. Paste TypeScript code to get complexity metrics, type coverage score, maintainability analysis, and code quality issues. Covers typescript code metrics, typescript script analysis, and static analysis. No install required.",
-  "featureList": "TypeScript complexity analysis, type coverage score, cyclomatic complexity, lines of code, any type detection, unused variable detection, maintainability grade"
+  "description": "Free TypeScript code analyzer tool. Paste TypeScript code to get complexity metrics, type coverage score, maintainability analysis, and code quality issues. No install required.",
+  "featureList": "TypeScript complexity analysis, type coverage score, cyclomatic complexity calculator, lines of code metrics, any type detection, unused variable detection, maintainability grade, free typescript analyzer online"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://franrivalbigprojects.github.io/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "TypeScript Code Analysis Tool",
+      "item": "https://franrivalbigprojects.github.io/ts-analysis-tools/"
+    }
+  ]
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Free TypeScript Code Analysis Tool – Metrics, Complexity Analyzer & Static Code Analyzer",
+  "description": "Free online TypeScript code analyzer. Paste code to get cyclomatic complexity metrics, type coverage score, maintainability grade, and code quality issues instantly.",
+  "datePublished": "2025-01-01",
+  "dateModified": "2025-05-11",
+  "author": {
+    "@type": "Person",
+    "name": "Emmanuel Ibarra"
+  }
 }
 </script>
 
@@ -665,10 +751,26 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What are the best TypeScript static analysis tools?",
+      "name": "What are the best free TypeScript static analysis tools?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "The main TypeScript static analysis tools are: ESLint with @typescript-eslint (most widely used, catches type-unsafe patterns), TypeScript compiler itself with strict mode (tsc --strict), SonarQube/SonarCloud (enterprise code quality platform), FTA - Fast TypeScript Analyzer (complexity and maintainability metrics, written in Rust), and typescript-coverage-report (measures percentage of typed code). This online analyzer provides instant code metrics without any installation."
+        "text": "The main TypeScript static analysis tools are: ESLint with @typescript-eslint (enforces rules and catches type-unsafe patterns), TypeScript compiler with strict mode (tsc --strict), FTA - Fast TypeScript Analyzer (Rust-based complexity metrics), SonarQube/SonarCloud (enterprise code quality), and this free online TypeScript analyzer (instant browser-based metrics). For quick code reviews without installation, this free TypeScript code analyzer is the fastest option."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is cyclomatic complexity in TypeScript?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Cyclomatic complexity measures the number of linearly independent paths through TypeScript code. Each decision point (if, for, while, case, etc.) increases complexity by 1. A score of 1-5 is simple, 6-10 is moderate, 11-20 is complex, above 20 requires refactoring. High cyclomatic complexity makes code harder to test and maintain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How to analyze TypeScript code complexity without installing ESLint?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Use this free browser-based TypeScript code analyzer. Simply paste your TypeScript code and click Analyze to instantly get cyclomatic complexity metrics, type coverage score, maintainability grade, and code quality issues. No npm install required."
       }
     },
     {
@@ -676,15 +778,47 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       "name": "What TypeScript code metrics should I track?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Key TypeScript code metrics: Cyclomatic complexity (number of independent code paths — under 10 per function is ideal), lines of code per file (under 200-300 for maintainability), type coverage percentage (ratio of explicitly typed vs inferred vs any), any type usage count (each any is a type safety hole), function count and average length, and unused variable/import count. These metrics together give a maintainability score."
+        "text": "Key TypeScript code metrics: Cyclomatic complexity (under 10 per function is ideal), lines of code per file (under 300 for maintainability), type coverage percentage (90%+ is excellent), any type usage count (minimize this), function count and average length (keep functions under 50 lines), and unused variable count. These metrics together give a maintainability score."
       }
     },
     {
       "@type": "Question",
-      "name": "What is TypeScript code analysis?",
+      "name": "What is a good TypeScript type coverage percentage?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "TypeScript code analysis is the process of examining TypeScript source files to detect quality issues, measure complexity, and assess type safety without executing the code. Static analysis tools parse TypeScript ASTs to find patterns like excessive any usage, high cyclomatic complexity, missing return types, unused variables, and potential null pointer errors. The TypeScript compiler itself performs type checking, while tools like ESLint and FTA provide additional code quality metrics."
+        "text": "Over 90% type coverage is excellent, indicating most of your code has explicit or inferred types. 70-90% is good but has some type safety gaps. Below 70% means significant use of 'any' type which defeats TypeScript's purpose. Aim to increase type coverage by replacing 'any' with specific types or using 'unknown' with type guards."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I improve TypeScript code quality metrics?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "To improve TypeScript code metrics: 1) Reduce cyclomatic complexity by breaking complex functions into smaller units, 2) Increase type coverage by replacing 'any' with specific types, 3) Reduce file size by splitting large files into modules, 4) Add explicit return type annotations, 5) Remove unused variables and imports, 6) Enable strict mode in tsconfig.json. Use this free TypeScript analyzer to measure progress."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I use this TypeScript analyzer in my CI/CD pipeline?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool is browser-based for quick code reviews. For CI/CD pipeline integration, use command-line tools: FTA (npm fta-cli), ESLint with @typescript-eslint, or SonarQube. These can be integrated into GitHub Actions, GitLab CI, Jenkins, and other CI platforms to automatically check code metrics on every commit."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between ESLint and this TypeScript analyzer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "ESLint enforces coding rules and catches type-unsafe patterns, requiring configuration and installation. This free TypeScript analyzer measures code metrics (complexity, type coverage, maintainability) without rules. ESLint is for continuous enforcement during development, while this tool is for quick metric analysis and code quality reviews. Both are complementary tools."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are TypeScript best practices for code quality?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "TypeScript code quality best practices: 1) Enable strict: true in tsconfig.json, 2) Maintain 90%+ type coverage, 3) Keep cyclomatic complexity under 10, 4) Keep functions under 50 lines, 5) Use ESLint with @typescript-eslint, 6) Add explicit return type annotations, 7) Use const by default, prefer let over var, 8) Avoid type assertions (as keyword), 9) Use unknown instead of any, 10) Write unit tests for complex logic."
       }
     }
   ]
@@ -698,7 +832,7 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 <header>
   <div class="header-inner">
     <span class="logo-pill">TS</span>
-    <span class="logo-text"><strong>typescript</strong>-code-analysis</span>
+    <span class="logo-text"><strong>free</strong> typescript analyzer</span>
   </div>
 </header>
 
@@ -707,17 +841,20 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
   <!-- HERO -->
 
   <section class="hero">
-    <p class="hero-eyebrow">// Free TypeScript Dev Tool</p>
-    <h1><em>TypeScript Code Analysis</em><br>Metrics, Complexity &amp; Static Analyzer</h1>
+    <p class="hero-eyebrow">// Free TypeScript Developer Tool</p>
+    <h1><em>Free TypeScript Code Analysis Tool</em><br>Metrics, Complexity Analyzer &amp; Static Code Analysis Online</h1>
     <p class="hero-sub">
-      Paste TypeScript code to get <strong>complexity metrics, type coverage score, maintainability grade</strong>, and static analysis issues — instantly, no install.
+      Paste TypeScript code to instantly get <strong>cyclomatic complexity metrics, type coverage score, maintainability grade</strong>, and code quality analysis — no install required. Best free TypeScript code analyzer online.
+    </p>
+    <p class="hero-desc">
+      This free TypeScript analyzer measures code quality without installing dependencies. Get instant metrics on complexity, type safety, maintainability, and potential issues. Perfect for code reviews, learning TypeScript best practices, and measuring code quality improvements.
     </p>
     <div class="pill-row">
-      <span class="pill pill-ts">Code Metrics</span>
-      <span class="pill pill-ts">Type Coverage</span>
-      <span class="pill pill-dim">Complexity Score</span>
-      <span class="pill pill-dim">Maintainability Grade</span>
-      <span class="pill pill-dim">Free &middot; No install</span>
+      <span class="pill pill-ts">Complexity Metrics</span>
+      <span class="pill pill-ts">Type Coverage Score</span>
+      <span class="pill pill-ts">Maintainability Index</span>
+      <span class="pill pill-dim">Free · Browser-based</span>
+      <span class="pill pill-dim">No Installation</span>
     </div>
   </section>
 
@@ -725,18 +862,17 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 
   <div class="tool-shell">
     <div class="tool-topbar">
-      <span class="topbar-label">// TypeScript Code Analyzer</span>
+      <span class="topbar-label">// Free TypeScript Code Analyzer</span>
       <div style="display:flex;gap:8px;">
         <button class="btn-sm btn-green" onclick="loadSample()">Load Sample</button>
         <button class="btn-sm btn-ghost" onclick="clearAll()">Clear</button>
       </div>
     </div>
 
-
 <div class="editor-split">
   <div class="editor-side">
-    <div class="panel-head"><span>// Paste TypeScript code</span><span id="lineCount">0 lines</span></div>
-    <textarea class="code-textarea" id="codeInput" oninput="onCodeChange()" spellcheck="false" placeholder="// Paste your TypeScript code here..."></textarea>
+    <div class="panel-head"><span>// Paste TypeScript code to analyze</span><span id="lineCount">0 lines</span></div>
+    <textarea class="code-textarea" id="codeInput" oninput="onCodeChange()" spellcheck="false" placeholder="// Paste your TypeScript code here to analyze...&#10;// Get instant complexity, type coverage, and code quality metrics."></textarea>
   </div>
   <div class="results-side">
     <div class="panel-head"><span>// Analysis results</span></div>
@@ -750,80 +886,98 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
 </div>
 
 <div class="analyse-bar">
-  <button class="btn-analyse" onclick="analyseCode()">Analyze TypeScript</button>
+  <button class="btn-analyse" onclick="analyseCode()">Analyze TypeScript Code</button>
   <button class="btn-sm btn-ghost" onclick="clearAll()">Reset</button>
 </div>
-
 
   </div>
 
   <hr class="divider">
 
-  <!-- STATIC ANALYSIS TOOLS COMPARISON -->
+  <!-- COMPARISON SECTION -->
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">TypeScript Static Analysis Tools</span>
+      <span class="sec-label">TypeScript Static Analysis Tools Comparison</span>
       <span class="sec-rule"></span>
     </div>
 
+<h2>Best TypeScript Static Analysis Tools – Features & Comparison</h2>
 
-<p><strong>TypeScript static analysis tools</strong> examine your code without running it to find bugs, measure complexity, and enforce style rules. Here is how the main tools compare:</p>
+<p><strong>TypeScript static analysis tools</strong> examine your code without running it to find bugs, measure complexity, enforce style rules, and assess code quality. Here is how the main TypeScript code analysis tools compare:</p>
 
 <div class="cmp-table">
   <div class="cmp-row cmp-head">
-    <div class="cmp-cell">Tool</div>
-    <div class="cmp-cell">Type</div>
-    <div class="cmp-cell">Install</div>
-    <div class="cmp-cell">Best for</div>
-    <div class="cmp-cell">Free</div>
+    <div class="cmp-cell">Tool (TypeScript Analyzer)</div>
+    <div class="cmp-cell">Type of Analysis</div>
+    <div class="cmp-cell">Installation</div>
+    <div class="cmp-cell">Best For TypeScript Projects</div>
+    <div class="cmp-cell">Cost</div>
   </div>
   <div class="cmp-row">
-    <div class="cmp-cell" style="color:#fff;font-weight:600;">This tool</div>
-    <div class="cmp-cell">Metrics + complexity</div>
-    <div class="cmp-cell"><span class="badge b-green">Browser</span></div>
-    <div class="cmp-cell">Quick code review</div>
-    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+    <div class="cmp-cell" style="color:#fff;font-weight:600;">This Free TypeScript Code Analyzer</div>
+    <div class="cmp-cell">Code metrics, complexity calculator</div>
+    <div class="cmp-cell"><span class="badge b-green">Browser-based</span></div>
+    <div class="cmp-cell">Quick TypeScript code reviews, instant metrics analysis</div>
+    <div class="cmp-cell"><span class="badge b-green">Free</span></div>
   </div>
   <div class="cmp-row">
     <div class="cmp-cell">ESLint + @typescript-eslint</div>
-    <div class="cmp-cell">Linting + type safety</div>
+    <div class="cmp-cell">Linting, type safety rules enforcement</div>
     <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
-    <div class="cmp-cell">Daily development</div>
-    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+    <div class="cmp-cell">Daily TypeScript development, CI/CD rule enforcement</div>
+    <div class="cmp-cell"><span class="badge b-green">Free</span></div>
   </div>
   <div class="cmp-row">
-    <div class="cmp-cell">tsc --strict</div>
-    <div class="cmp-cell">Type checking</div>
+    <div class="cmp-cell">TypeScript Compiler (tsc --strict)</div>
+    <div class="cmp-cell">Type checking, strict mode validation</div>
     <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
-    <div class="cmp-cell">Compile-time safety</div>
-    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+    <div class="cmp-cell">Compile-time TypeScript type safety checking</div>
+    <div class="cmp-cell"><span class="badge b-green">Free</span></div>
   </div>
   <div class="cmp-row">
     <div class="cmp-cell">FTA (Fast TypeScript Analyzer)</div>
-    <div class="cmp-cell">Complexity + metrics</div>
-    <div class="cmp-cell"><span class="badge b-yellow">Rust CLI</span></div>
-    <div class="cmp-cell">Repo-wide metrics</div>
-    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
+    <div class="cmp-cell">Complexity metrics, maintainability analyzer</div>
+    <div class="cmp-cell"><span class="badge b-yellow">Rust/npm CLI</span></div>
+    <div class="cmp-cell">Repository-wide TypeScript metrics, Halstead complexity</div>
+    <div class="cmp-cell"><span class="badge b-green">Free</span></div>
   </div>
   <div class="cmp-row">
     <div class="cmp-cell">SonarQube / SonarCloud</div>
-    <div class="cmp-cell">Full code quality</div>
-    <div class="cmp-cell"><span class="badge b-red">Server / SaaS</span></div>
-    <div class="cmp-cell">Enterprise CI/CD</div>
+    <div class="cmp-cell">Full code quality, security, coverage</div>
+    <div class="cmp-cell"><span class="badge b-red">Server/SaaS</span></div>
+    <div class="cmp-cell">Enterprise TypeScript projects, CI/CD integration</div>
     <div class="cmp-cell"><span class="badge b-yellow">Freemium</span></div>
-  </div>
-  <div class="cmp-row">
-    <div class="cmp-cell">typescript-coverage-report</div>
-    <div class="cmp-cell">Type coverage</div>
-    <div class="cmp-cell"><span class="badge b-yellow">npm install</span></div>
-    <div class="cmp-cell">Type coverage %</div>
-    <div class="cmp-cell"><span class="badge b-green">Yes</span></div>
   </div>
 </div>
 
+<h3>When to Use This Free TypeScript Analyzer vs Other Tools</h3>
+
+<p><strong>Use this free online TypeScript code analyzer when:</strong></p>
+<ul>
+  <li>You want to quickly review TypeScript code metrics without installation</li>
+  <li>You need instant cyclomatic complexity and type coverage analysis</li>
+  <li>You're learning about TypeScript code quality best practices</li>
+  <li>You want to measure code improvements before committing changes</li>
+</ul>
+
+<p><strong>Use ESLint + @typescript-eslint when:</strong></p>
+<ul>
+  <li>You're integrating linting into your TypeScript project workflow</li>
+  <li>You need rule enforcement and code style consistency</li>
+  <li>You want to catch issues during development automatically</li>
+</ul>
+
+<p><strong>Use FTA (Fast TypeScript Analyzer) when:</strong></p>
+<ul>
+  <li>You need to analyze entire TypeScript repositories</li>
+  <li>You want Halstead metrics alongside cyclomatic complexity</li>
+  <li>You need CLI integration or CI/CD pipeline integration</li>
+</ul>
 
   </section>
+
+  <hr class="divider">
 
   <!-- METRICS EXPLAINED -->
 
@@ -833,54 +987,230 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       <span class="sec-rule"></span>
     </div>
 
+<h2>Understanding TypeScript Code Metrics & Quality Indicators</h2>
 
-<div class="dense-block">
-  <p><strong>Cyclomatic Complexity</strong><br>
-  Counts the number of independent paths through a function — each <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>case</code>, <code>catch</code>, <code>&&</code>, and <code>||</code> adds 1. A score of 1-5 is simple, 6-10 is moderate, 11-20 is complex and should be refactored, above 20 is a maintainability risk. TypeScript functions with high cyclomatic complexity are harder to test and understand.</p>
+<h3>What is Cyclomatic Complexity in TypeScript Code?</h3>
 
-  <p><strong>Type Coverage Score</strong><br>
-  Measures the ratio of your code that has explicit or inferred type information vs. uses <code>any</code>. A high <code>any</code> count defeats the purpose of TypeScript — each <code>any</code> is an escape hatch that bypasses type checking. Tools like <code>typescript-coverage-report</code> and <code>type-coverage</code> measure this across your entire repo. This analyzer counts explicit <code>any</code> usages as a proxy for coverage quality.</p>
+<p><strong>Cyclomatic complexity</strong> is a quantitative measure of the number of linearly independent paths through your TypeScript code. It counts decision points: each <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>case</code>, <code>catch</code>, <code>&&</code>, and <code>||</code> adds 1 to the score. Higher cyclomatic complexity indicates code that's harder to test, maintain, and debug.</p>
 
-  <p><strong>Maintainability Index</strong><br>
-  A composite score combining cyclomatic complexity, lines of code, and Halstead volume (a measure of code density). The FTA tool uses a similar scoring model. Higher scores mean more maintainable code. This analyzer grades from A (excellent) to F (needs immediate refactoring) using a weighted combination of complexity, file size, and type safety issues.</p>
+<ul>
+  <li><strong>Score 1-5:</strong> Simple, maintainable TypeScript code — easy to understand and test</li>
+  <li><strong>Score 6-10:</strong> Moderate complexity — refactoring recommended for clarity</li>
+  <li><strong>Score 11-20:</strong> High complexity — significant refactoring needed to improve maintainability</li>
+  <li><strong>Score 20+:</strong> Critical complexity — must refactor immediately to reduce technical debt</li>
+</ul>
 
-  <p><strong>Function and Class Count</strong><br>
-  Large files with many functions are harder to navigate. As a rule of thumb: files should have a single responsibility, functions should do one thing, and classes should have a narrow interface. A TypeScript file with 20+ functions or 3+ classes is a signal to split into multiple modules.</p>
-</div>
+<p>TypeScript functions with high cyclomatic complexity are harder to test and understand. Break complex functions into smaller, focused units to reduce complexity.</p>
 
+<h3>TypeScript Type Coverage Score – Measuring Type Safety</h3>
+
+<p><strong>Type coverage</strong> measures the ratio of your TypeScript code that has explicit or inferred type information versus using the <code>any</code> type. A high type coverage percentage means better type safety; each <code>any</code> is an escape hatch that bypasses TypeScript's type checking entirely.</p>
+
+<ul>
+  <li><strong>90-100% type coverage:</strong> Excellent — minimal use of 'any', strong type safety</li>
+  <li><strong>70-90% type coverage:</strong> Good — most code is typed, some gaps remain</li>
+  <li><strong>50-70% type coverage:</strong> Moderate — significant type safety gaps, refactoring recommended</li>
+  <li><strong>Below 50% type coverage:</strong> Poor — excessive 'any' usage defeats TypeScript's purpose</li>
+</ul>
+
+<p>Tools like <code>typescript-coverage-report</code> and <code>type-coverage</code> measure this across your entire repository. To improve type coverage, replace <code>any</code> with specific types or use <code>unknown</code> with proper type guards.</p>
+
+<h3>TypeScript Maintainability Index – Overall Code Quality Score</h3>
+
+<p><strong>The maintainability index</strong> is a composite score combining cyclomatic complexity, lines of code, and Halstead volume (a measure of code density). Higher scores mean more maintainable code. This free TypeScript analyzer calculates maintainability grades from A (excellent) to F (critical):</p>
+
+<ul>
+  <li><strong>Grade A (80-100):</strong> Simple, well-typed, low complexity — easy to maintain and extend</li>
+  <li><strong>Grade B (65-79):</strong> Minor issues, generally maintainable — acceptable for production</li>
+  <li><strong>Grade C (50-64):</strong> Moderate complexity or type safety gaps — refactoring recommended</li>
+  <li><strong>Grade D (35-49):</strong> High complexity or significant 'any' usage — technical debt present</li>
+  <li><strong>Grade F (below 35):</strong> Difficult to maintain, high risk of bugs — prioritize refactoring</li>
+</ul>
+
+<h3>How to Calculate TypeScript Function Metrics</h3>
+
+<p>TypeScript function metrics include: average lines of code per function, total function count, maximum nesting depth, and return type coverage. Functions should typically be under 50 lines of code. Large functions indicate they're doing too much and should be split into smaller, focused functions.</p>
+
+<p>As a rule of thumb: files should have a single responsibility, functions should do one thing, and classes should have a narrow interface. A TypeScript file with 20+ functions or high nesting depth is a signal to refactor into multiple modules.</p>
 
   </section>
+
+  <hr class="divider">
+
+  <!-- COMMON ISSUES -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">Common TypeScript Code Quality Issues</span>
+      <span class="sec-rule"></span>
+    </div>
+
+<h2>Common Code Quality Problems in TypeScript Projects</h2>
+
+<h3>Excessive Use of 'any' Type in TypeScript</h3>
+
+<p>The <code>any</code> type bypasses TypeScript's type checking entirely, defeating the purpose of using TypeScript. Each <code>any</code> is a type safety hole. Instead of <code>any</code>, use specific types or <code>unknown</code> with type guards to maintain type safety.</p>
+
+<h3>High Cyclomatic Complexity in TypeScript Functions</h3>
+
+<p>Functions with many if/else branches, nested loops, and conditional operations become hard to understand and test. When cyclomatic complexity exceeds 10, break the function into smaller, focused units with single responsibilities.</p>
+
+<h3>Large TypeScript Files and Functions</h3>
+
+<p>Files over 300 lines or functions over 50 lines indicate poor separation of concerns. Split large TypeScript files into modules, and extract complex logic into separate functions. The Single Responsibility Principle improves maintainability.</p>
+
+<h3>Missing Return Type Annotations in TypeScript</h3>
+
+<p>Implicit return types make refactoring dangerous — changing implementation details can silently change the API contract. Always add explicit return type annotations to TypeScript functions to catch breaking changes during type checking.</p>
+
+<h3>Unused Variables and Dead Code in TypeScript</h3>
+
+<p>Variables declared but never used, unused imports, and unreachable code indicate incomplete refactoring. Enable <code>noUnusedLocals</code> and <code>noUnusedParameters</code> in tsconfig.json to catch these issues automatically.</p>
+
+<h3>Inconsistent Type Declarations</h3>
+
+<p>Mixing implicit types, explicit types, and any creates inconsistency. Establish a standard: explicitly annotate parameters and return types, use const assertions where appropriate, and avoid implicit any types.</p>
+
+  </section>
+
+  <hr class="divider">
+
+  <!-- BEST PRACTICES -->
+
+  <section class="content-section">
+    <div class="sec-head">
+      <span class="sec-label">TypeScript Code Quality Best Practices</span>
+      <span class="sec-rule"></span>
+    </div>
+
+<h2>TypeScript Code Quality Best Practices Guide</h2>
+
+<h3>1. Enable Strict Mode in tsconfig.json</h3>
+
+<p>Strict mode enables stricter type checking rules including <code>strictNullChecks</code>, <code>noImplicitAny</code>, <code>strictFunctionTypes</code>, and others. This catches more errors at compile time and prevents runtime bugs. Strict mode is essential for production TypeScript projects.</p>
+
+<h3>2. Maintain High Type Coverage in TypeScript Code</h3>
+
+<p>Aim for 90%+ type coverage to minimize <code>any</code> usage. Explicit type annotations improve code readability, catch errors during refactoring, and make your code more maintainable. Use this free TypeScript analyzer to measure and track type coverage over time.</p>
+
+<h3>3. Keep TypeScript Functions Small and Focused</h3>
+
+<p>Keep cyclomatic complexity under 10 and functions under 50 lines of code. Small functions are easier to test, understand, and maintain. Each function should do one thing well, following the Single Responsibility Principle.</p>
+
+<h3>4. Use ESLint with @typescript-eslint for Consistency</h3>
+
+<p>Enforce style rules and catch errors with ESLint + @typescript-eslint. This ensures consistency across your TypeScript codebase and catches type-unsafe patterns automatically. Integrate into your CI/CD pipeline for every commit.</p>
+
+<h3>5. Refactor High Complexity TypeScript Code</h3>
+
+<p>Break down complex functions into smaller, testable units. Extract conditional logic into helper functions, use guard clauses to reduce nesting, and apply design patterns where appropriate. Use this analyzer to track improvements.</p>
+
+<h3>6. Add Explicit Return Type Annotations</h3>
+
+<p>Always annotate return types explicitly instead of relying on inference. This makes function contracts clear, prevents accidental API changes, and helps catch errors during refactoring. It also improves code readability.</p>
+
+<h3>7. Use const by Default, Prefer let over var</h3>
+
+<p>Modern TypeScript code should use <code>const</code> for immutability by default, <code>let</code> for variables that change, and avoid <code>var</code> entirely. This reduces bugs from accidental mutations and improves code clarity.</p>
+
+  </section>
+
+  <hr class="divider">
 
   <!-- FAQ -->
 
   <section class="content-section">
     <div class="sec-head">
-      <span class="sec-label">FAQ — TypeScript Static Analysis</span>
+      <span class="sec-label">FAQ — TypeScript Code Analysis & Metrics</span>
       <span class="sec-rule"></span>
     </div>
-    <div class="faq-list">
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What are the best TypeScript static analysis tools?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">The main tools: <strong>ESLint + @typescript-eslint</strong> — most widely used, catches type-unsafe patterns and enforces best practices. <strong>tsc --strict</strong> — the compiler itself with strict null checks, no implicit any, and strict function types. <strong>FTA</strong> — Fast TypeScript Analyzer, a Rust CLI that measures complexity and maintainability scores across your codebase. <strong>SonarCloud</strong> — enterprise code quality with TypeScript-specific rules. <strong>knip</strong> — finds unused exports, dependencies, and files. This tool provides instant browser-based metrics with no install.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What TypeScript code analysis tools detect unused code?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a"><code>knip</code> is the best dedicated tool for finding unused TypeScript exports, files, and dependencies across a project. <code>ts-prune</code> finds unused exports. ESLint's <code>no-unused-vars</code> and <code>@typescript-eslint/no-unused-vars</code> catch unused local variables at file level. TypeScript's own <code>noUnusedLocals</code> and <code>noUnusedParameters</code> compiler flags also detect unused declarations. This analyzer detects unused variables in the pasted code.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">How do I do static code analysis in TypeScript?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Three layers: (1) <strong>Compiler checks</strong> — enable <code>strict: true</code> in <code>tsconfig.json</code> for maximum type safety. (2) <strong>Linting</strong> — add ESLint with <code>@typescript-eslint/recommended</code> to catch patterns the compiler allows but are considered unsafe. (3) <strong>Complexity metrics</strong> — use FTA or this tool to measure cyclomatic complexity and flag files that need refactoring. Run all three in CI to enforce quality on every pull request.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is FTA — Fast TypeScript Analyzer?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">FTA is an open-source TypeScript static analysis CLI written in Rust (using the <code>swc</code> parser). It analyzes TypeScript and JavaScript files for complexity and maintainability, outputting a score per file. It can analyze up to 1600 files per second. FTA is available via npm (<code>npx fta-cli</code>) and has a playground at ftaproject.dev. This browser tool provides similar per-snippet metrics without requiring installation.</div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q" onclick="toggleFaq(this)">What is a good TypeScript maintainability score?<span class="faq-arrow">&#9660;</span></button>
-        <div class="faq-a">Grade A (80-100): simple, well-typed, low complexity — easy to maintain. Grade B (65-79): minor issues, generally maintainable. Grade C (50-64): moderate complexity or type safety gaps — refactoring recommended. Grade D (35-49): high complexity or significant <code>any</code> usage — technical debt present. Grade F (below 35): difficult to maintain, high risk of bugs — prioritize refactoring. Most production TypeScript files should target Grade B or above.</div>
-      </div>
-    </div>
+
+<h2>Frequently Asked Questions About TypeScript Code Analysis</h2>
+
+
+<div class="faq-list">
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What are the best free TypeScript static analysis tools?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">The main free TypeScript static analysis tools: <strong>ESLint + @typescript-eslint</strong> — most widely used, catches type-unsafe patterns and enforces best practices. <strong>tsc --strict</strong> — the TypeScript compiler itself with strict mode enabled. <strong>FTA</strong> — Fast TypeScript Analyzer, a Rust CLI tool that measures complexity and maintainability scores across your entire repository. <strong>SonarCloud</strong> — free tier for public repos with TypeScript-specific rules. <strong>This free online TypeScript analyzer</strong> — provides instant browser-based metrics with no installation required.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What is cyclomatic complexity in TypeScript?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">Cyclomatic complexity is a quantitative measure of the number of linearly independent paths through your TypeScript code. Each decision point (if, for, while, case, etc.) increases complexity by 1. A score of 1-5 is simple, 6-10 is moderate, 11-20 is complex and should be refactored, above 20 is a maintainability risk. High cyclomatic complexity makes TypeScript code harder to test, understand, and maintain.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How to analyze TypeScript code complexity without installing ESLint?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">Use this free browser-based TypeScript code analyzer. Simply paste your TypeScript code and click "Analyze TypeScript Code" to instantly get cyclomatic complexity metrics, type coverage score, maintainability grade, and code quality issues. No npm install or configuration required. Perfect for quick code reviews and learning about code metrics.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What TypeScript code metrics should I track?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">Key TypeScript code metrics to track: <strong>Cyclomatic complexity</strong> (number of independent code paths — under 10 per function is ideal), <strong>lines of code per file</strong> (under 200-300 for maintainability), <strong>type coverage percentage</strong> (ratio of typed vs any code — aim for 90%+), <strong>any type usage count</strong> (each any is a type safety hole), <strong>function count and average length</strong>, and <strong>unused variable/import count</strong>. These metrics together give a maintainability score.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What is a good TypeScript type coverage percentage?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">Over 90% type coverage is excellent, indicating most of your TypeScript code has explicit or inferred types. 70-90% is good but has some type safety gaps. Below 70% means significant use of 'any' type which defeats TypeScript's purpose. Aim to increase type coverage by replacing 'any' with specific types or using 'unknown' with proper type guards.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I improve TypeScript code quality metrics?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">To improve TypeScript code metrics: <strong>Reduce cyclomatic complexity</strong> by breaking complex functions into smaller units, <strong>increase type coverage</strong> by replacing 'any' with specific types, <strong>reduce file size</strong> by splitting large files into modules, <strong>add explicit return type annotations</strong>, <strong>remove unused variables and imports</strong>, <strong>enable strict mode in tsconfig.json</strong>, and <strong>use this free TypeScript analyzer to measure progress</strong> over time.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What TypeScript code analysis tools detect unused code?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a"><code>knip</code> is the best dedicated free tool for finding unused TypeScript exports, files, and dependencies across a project. <code>ts-prune</code> finds unused exports. ESLint's <code>no-unused-vars</code> and <code>@typescript-eslint/no-unused-vars</code> catch unused local variables at the file level. TypeScript's own <code>noUnusedLocals</code> and <code>noUnusedParameters</code> compiler flags also detect unused declarations. This free analyzer detects unused variables in the pasted code snippet.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">How do I do static code analysis in TypeScript?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">Static code analysis in TypeScript requires three layers: <strong>Compiler checks</strong> — enable <code>strict: true</code> in tsconfig.json for maximum type safety. <strong>Linting</strong> — add ESLint with <code>@typescript-eslint/recommended</code> to catch patterns the compiler allows but are considered unsafe. <strong>Complexity metrics</strong> — use this free tool or FTA to measure cyclomatic complexity and flag files that need refactoring. Run all three in CI/CD to enforce quality on every pull request.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">Can I use this TypeScript analyzer in my CI/CD pipeline?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">This tool is browser-based for quick code reviews and learning. For CI/CD pipeline integration, use command-line tools: <strong>FTA</strong> (<code>npm fta-cli</code>) for metrics, <strong>ESLint + @typescript-eslint</strong> for rule enforcement, or <strong>SonarQube</strong> for full code quality scanning. These can be integrated into GitHub Actions, GitLab CI, Jenkins, Azure Pipelines, and other CI platforms to automatically check code metrics on every commit.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What is the difference between ESLint and this TypeScript analyzer?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a"><strong>ESLint + @typescript-eslint</strong> enforces coding rules and catches type-unsafe patterns, requiring configuration and installation in your project. <strong>This free TypeScript analyzer</strong> measures code metrics (complexity, type coverage, maintainability) without enforcing rules. ESLint is for continuous enforcement during development and CI/CD, while this tool is for quick metric analysis and code quality reviews. Both are complementary tools.</div>
+  </div>
+  <div class="faq-item">
+    <button class="faq-q" onclick="toggleFaq(this)">What are TypeScript best practices for code quality?<span class="faq-arrow">&#9660;</span></button>
+    <div class="faq-a">TypeScript code quality best practices: 1) <strong>Enable strict mode</strong> in tsconfig.json, 2) <strong>Maintain 90%+ type coverage</strong> by avoiding 'any', 3) <strong>Keep cyclomatic complexity under 10</strong> per function, 4) <strong>Keep functions under 50 lines</strong>, 5) <strong>Use ESLint with @typescript-eslint</strong>, 6) <strong>Add explicit return type annotations</strong>, 7) <strong>Use const by default</strong>, prefer let over var, 8) <strong>Avoid type assertions</strong> (as keyword), 9) <strong>Use unknown instead of any</strong>, 10) <strong>Write unit tests</strong> for complex logic.</div>
+  </div>
+</div>
+
+
   </section>
+
+  <!-- TAGS -->
+
+  <hr class="divider">
+
+  <h2 style="margin-bottom: 20px;">TypeScript Analysis Keywords</h2>
+
+  <div class="tag-cloud">
+    <span class="tag">typescript code analysis</span>
+    <span class="tag">typescript code analyzer</span>
+    <span class="tag">free typescript analyzer</span>
+    <span class="tag">typescript complexity analyzer</span>
+    <span class="tag">typescript metrics calculator</span>
+    <span class="tag">typescript code quality analyzer</span>
+    <span class="tag">cyclomatic complexity typescript</span>
+    <span class="tag">typescript type coverage</span>
+    <span class="tag">typescript maintainability index</span>
+    <span class="tag">typescript static analysis</span>
+    <span class="tag">typescript static analysis tools</span>
+    <span class="tag">typescript code metrics</span>
+    <span class="tag">typescript analyzer online</span>
+    <span class="tag">typescript analyzer free</span>
+    <span class="tag">typescript nesting depth analyzer</span>
+    <span class="tag">typescript unused variables</span>
+    <span class="tag">typescript function metrics</span>
+    <span class="tag">typescript code quality metrics</span>
+    <span class="tag">typescript online analyzer</span>
+    <span class="tag">how to analyze typescript code</span>
+    <span class="tag">typescript code review tool</span>
+    <span class="tag">typescript ast analyzer</span>
+    <span class="tag">measure typescript code quality</span>
+    <span class="tag">typescript any type detector</span>
+    <span class="tag">typescript type safety checker</span>
+  </div>
 
   <!-- OTHER TOOLS -->
 
@@ -889,49 +1219,69 @@ footer p { font-family: var(--mono); font-size: 11px; color: var(--text-dim); ma
       <span class="sec-label">More TypeScript Tools</span>
       <span class="sec-rule"></span>
     </div>
-    <div class="tools-grid">
-      <a href="typescript_strict_mode_checker/" class="otl">
-        <p class="otl-eye">strict //</p>
-        <span class="otl-name">Strict Mode Checker</span>
-      </a>
-      <a href="typescript_type_coverage_analyzer/" class="otl">
-        <p class="otl-eye">coverage //</p>
-        <span class="otl-name">Type Coverage Analyzer</span>
-      </a>
-      <a href="typescript_type_mismatch_debugger/" class="otl">
-        <p class="otl-eye">debug //</p>
-        <span class="otl-name">Type Mismatch Debugger</span>
-      </a>
-      <a href="typescript_unused_types_detector/" class="otl">
-        <p class="otl-eye">unused //</p>
-        <span class="otl-name">Unused Types Detector</span>
-      </a>
-    </div>
+
+<h2>Explore More Free TypeScript Code Analysis Tools</h2>
+
+
+<div class="tools-grid">
+  <a href="typescript_strict_mode_checker/" class="otl">
+    <p class="otl-eye">strict //</p>
+    <span class="otl-name">Strict Mode Checker</span>
+  </a>
+  <a href="typescript_type_coverage_analyzer/" class="otl">
+    <p class="otl-eye">coverage //</p>
+    <span class="otl-name">Type Coverage Analyzer</span>
+  </a>
+  <a href="typescript_type_mismatch_debugger/" class="otl">
+    <p class="otl-eye">debug //</p>
+    <span class="otl-name">Type Mismatch Debugger</span>
+  </a>
+  <a href="typescript_unused_types_detector/" class="otl">
+    <p class="otl-eye">unused //</p>
+    <span class="otl-name">Unused Types Detector</span>
+  </a>
+</div>
+
+
   </section>
-
-  <!-- TAGS -->
-
-  <div class="tag-cloud">
-    <span class="tag">typescript code analysis</span>
-    <span class="tag">typescript code metrics</span>
-    <span class="tag">typescript script analyzer</span>
-    <span class="tag">typescript static analysis tools</span>
-    <span class="tag">static code analysis typescript</span>
-    <span class="tag">typescript complexity score</span>
-    <span class="tag">typescript maintainability index</span>
-    <span class="tag">typescript any type detector</span>
-    <span class="tag">typescript cyclomatic complexity</span>
-    <span class="tag">typescript code quality tool</span>
-    <span class="tag">typescript analyzer online free</span>
-    <span class="tag">fta typescript analyzer alternative</span>
-  </div>
 
 </div>
 
 <footer>
   <div class="footer-inner">
-    <p>typescript-code-analysis &middot; metrics &middot; static analysis &middot; free &middot; no install</p>
-    <p>complexity &middot; type coverage &middot; maintainability &middot; github pages</p>
+    <nav>
+      <h3>Tools</h3>
+      <ul>
+        <li><a href="/ts-analysis-tools/">TypeScript Code Analyzer</a></li>
+        <li><a href="/ts-strict-mode-checker/">Strict Mode Checker</a></li>
+        <li><a href="/typescript-type-coverage/">Type Coverage Analyzer</a></li>
+        <li><a href="/typescript-unused-detector/">Unused Types Detector</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h3>Resources</h3>
+      <ul>
+        <li><a href="#metrics">Metrics Guide</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#best-practices">Best Practices</a></li>
+        <li><a href="#comparison">Tools Comparison</a></li>
+      </ul>
+    </nav>
+    <nav>
+      <h3>About</h3>
+      <ul>
+        <li><a href="https://emmanuelibarra.com">Created by Emmanuel Ibarra</a></li>
+        <li><a href="https://github.com/FranRival/ts-analysis-tools">Open Source on GitHub</a></li>
+        <li><a href="https://github.com/FranRival">More Projects</a></li>
+      </ul>
+    </nav>
+    <div>
+      <p>
+        typescript-code-analysis • free typescript metrics • 
+        static code analysis • no install • browser-based •
+        complexity analyzer • type coverage • maintainability score
+      </p>
+    </div>
   </div>
 </footer>
 
@@ -950,7 +1300,6 @@ function countMatches(code, pattern) {
 }
 
 function calcComplexity(code) {
-  // Count decision points: if, else if, for, while, do, case, catch, &&, ||, ternary
   var ifCount      = countMatches(code, /\bif\s*\(/g);
   var elseIf       = countMatches(code, /\belse\s+if\s*\(/g);
   var forCount     = countMatches(code, /\bfor\s*\(/g);
@@ -1081,7 +1430,6 @@ function analyseCode() {
   var mScore     = calcMaintainability(loc, complexity, coverage.anyCount, issues.length);
   var grade      = scoreToGrade(mScore);
 
-  // Score row
   var scoreRow = el('div', 'score-row');
 
   function makeScore(val, lbl, color) {
@@ -1100,7 +1448,6 @@ function analyseCode() {
   scoreRow.appendChild(makeScore(loc, 'Lines', loc > 200 ? 'var(--orange)' : 'var(--text)'));
   pane.appendChild(scoreRow);
 
-  // Grade card
   var gc = el('div', 'grade-card');
   var gl = el('div', 'grade-letter', grade.grade);
   gl.style.color = grade.color;
@@ -1111,7 +1458,6 @@ function analyseCode() {
   gc.appendChild(gl); gc.appendChild(gm);
   pane.appendChild(gc);
 
-  // Metrics table
   var mt = el('div', 'metrics-table');
   function mRow(key, val) {
     var row = el('div', 'mt-row');
@@ -1128,7 +1474,6 @@ function analyseCode() {
   mRow('Interfaces / type aliases', countMatches(code, /\b(?:interface|type)\s+\w/g));
   pane.appendChild(mt);
 
-  // Issues
   var issueList = el('div', 'issue-list');
   issues.forEach(function(issue) {
     var item = el('div', 'issue-item ii-' + (issue.type === 'good' ? 'good' : issue.type));
